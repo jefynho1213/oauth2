@@ -7,7 +7,7 @@ var DBclient = require('../models/client');
 var LocalStrategy = require('passport-local').Strategy;
 
 
-passport.use(new LocalStrategy(
+passport.use(new basicStrategy(
   function(username, password, callback) {
     DBuser.findOne({ username: username }, function (err, user) {
       if (err) { return callback(err); }
@@ -72,4 +72,4 @@ exports.isBearerAuthenticated = passport.authenticate('bearer', { session : fals
 
 exports.isClientAuthenticated = passport.authenticate('client-auth', { session : false });
 
-exports.isAuthenticated = passport.authenticate(['local', 'bearer'], { session : false });
+exports.isAuthenticated = passport.authenticate(['basic', 'bearer'], { session : false });
